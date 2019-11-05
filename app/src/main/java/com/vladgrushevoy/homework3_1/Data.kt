@@ -33,5 +33,5 @@ class DataHelper {
         }
     }
 
-    fun getProcessors() = ssd
+    fun getSsd() = ssd
 }

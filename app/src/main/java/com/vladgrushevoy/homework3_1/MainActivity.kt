@@ -8,9 +8,9 @@ import androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE
 
 
 class MainActivity : AppCompatActivity(), OnItemListener {
-    private var ssd = DataHelper().getProcessors()
+    private var ssd = DataHelper().getSsd()
     private val dataAdapter = DataAdapter(ssd, this)
-    private var currentCPU: SSD? = null
+    private var currSsd: SSD? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,8 +19,8 @@ class MainActivity : AppCompatActivity(), OnItemListener {
         initCpuObject()
         if (savedInstanceState != null) {
             if (savedInstanceState.getSerializable(SSD_KEY) != null) {
-                currentCPU = savedInstanceState.getSerializable(SSD_KEY) as SSD
-                switchFragment(currentCPU!!)
+                currSsd = savedInstanceState.getSerializable(SSD_KEY) as SSD
+                switchFragment(currSsd!!)
             }
         }
     }
@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity(), OnItemListener {
             if (ORIENTATION_PORTRAIT == resources.configuration.orientation
                 && supportFragmentManager.backStackEntryCount == 0
             ) {
-                currentCPU = null
+                currSsd = null
             }
         }
     }
@@ -71,11 +71,11 @@ class MainActivity : AppCompatActivity(), OnItemListener {
     }
 
     override fun onClickItem(position: Int) {
-        currentCPU = ssd[position]
-        switchFragment(currentCPU!!)
+        currSsd = ssd[position]
+        switchFragment(currSsd!!)
     }
 
-    private fun isItemSelected() = currentCPU != null
+    private fun isItemSelected() = currSsd != null
 
     private fun clearBackStack() {
         supportFragmentManager.popBackStack(null, POP_BACK_STACK_INCLUSIVE)
@@ -87,8 +87,8 @@ class MainActivity : AppCompatActivity(), OnItemListener {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        if (currentCPU != null) {
-            outState.putSerializable(SSD_KEY, currentCPU)
+        if (currSsd != null) {
+            outState.putSerializable(SSD_KEY, currSsd)
         }
     }
 
