@@ -23,6 +23,8 @@ class InfoFragment : Fragment() {
                 ssd_description?.text = ssd.description
             }
         }
+
+
         return rootView
     }
 
